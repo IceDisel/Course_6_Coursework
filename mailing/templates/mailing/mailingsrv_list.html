@@ -1,0 +1,42 @@
+{% extends 'mailing/base_template.html' %}
+{% block content %}
+
+<div class="container my-4">
+    <a class="p-2 btn btn-outline-primary" href="{% url 'mailing:add_mailingsrv' %}">Создать рассылку</a>
+</div>
+
+<div class="container">
+
+    <div class="row">
+        {% for object in object_list %}
+        {% if perms.mailing.can_view_mailings or user == object.owner or user.is_superuser %}
+        <div class="col-12">
+            <div class="card text-center">
+                <div class="card-header">
+                    <p>{{object.owner}}</p>
+                    <p>{{object.recipients}}</p>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">{{object.comment|slice:":200" }}</p>
+                    <a href="{% url 'mailing:mailingsrv_detail' object.pk %}"
+                       class="btn btn-block btn-outline-primary btn-sm">Подробнее</a>
+
+
+                    {% if perms.mailing.set_is_activated and not user.is_superuser%}
+                    <a href="{% url 'mailing:edit_manager_mailingsrv' object.pk %}" class="btn btn-outline-primary btn-sm">Отключить активность рассылки</a>
+                    {% endif %}
+
+                    {% if user == object.owner or user.is_superuser %}
+                    <a href="{% url 'mailing:edit_mailingsrv' object.pk %}" class="btn btn-outline-primary btn-sm">Редактировать</a>
+                    <a href="{% url 'mailing:delete_mailingsrv' object.pk %}" class="btn btn-outline-danger btn-sm my-1">Удалить</a>
+                    {% endif %}
+
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

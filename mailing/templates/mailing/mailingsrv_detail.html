@@ -1,0 +1,38 @@
+{% extends 'mailing/base_template.html' %}
+
+{% block content %}
+
+<div class="container">
+    <div>
+        <a href = "{% url 'mailing:mailingsrv_list' %}">Назад</a> /
+    </div>
+</div>
+
+<div class="container my-4">
+    <div class="row text-start">
+
+        <div class="col-lg-9 col-md-6 col-sm-12">
+            <div class="card mb-4 box-shadow">
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <tr>
+                            <td class="w-25">Полное Имя</td>
+                            <td>{{ object.owner}}</td>
+                        </tr>
+                        <tr>
+                            <td class="w-25">Почтовый адрес</td>
+                            <td>{{ object.recipients }}</td>
+                        </tr>
+                        <tr>
+                            <td class="w-25">Описание</td>
+                            <td>{{ object.start }}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}
