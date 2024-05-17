@@ -9,7 +9,11 @@ from django.views.generic import CreateView, TemplateView
 from django.contrib.auth.hashers import make_password
 from django.http import HttpResponseRedirect
 
-from users.forms import UserRegisterForm
+from django.contrib.auth.models import User
+from django.contrib.auth.mixins import UserPassesTestMixin
+from django.views.generic import ListView, UpdateView
+
+from users.forms import UserRegisterForm, UserUpdateForm
 from users.models import User
 
 
@@ -97,3 +101,17 @@ class CustomPasswordResetView(TemplateView):
 
 class PasswordRecoveryMessageView(TemplateView):
     template_name = 'users/password_recovery_message.html'
+
+
+class UserListView(UserPassesTestMixin, ListView):
+    model = User
+    template_name = 'users/user_list.html'  # замените на ваш шаблон
+
+    def test_func(self):
+        return self.request.user.groups.filter(name='manager').exists() or self.request.user.is_superuser
+
+
+class UserUpdateView(UpdateView):
+    model = User
+    form_class = UserUpdateForm
+    success_url = reverse_lazy('users:list_users')
