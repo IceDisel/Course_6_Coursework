@@ -1,0 +1,30 @@
+{% extends 'mailing/base_template.html' %}
+{% block content %}
+
+<div class="container">
+
+    <div class="row text-center">
+        <div class="col-6">
+            <div class="card">
+                <div class="card-body">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit" class="p-2 btn btn-outline-primary">
+                            {% if user.is_authenticated %}
+                                Сохранить
+                            {% else %}
+                                Зарегистрировать
+                            {% endif %}
+                        </button>
+
+                        <a class="p-2 btn btn-outline-primary" href="{% url 'mailing:index' %}">Отмена</a>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

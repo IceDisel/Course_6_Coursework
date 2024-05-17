@@ -1,0 +1,53 @@
+{% load my_tags %}
+
+<div class="container">
+
+    <nav class="ms-5">
+        <div class="mb-2">
+            {% if user.is_authenticated %}
+                <div class="my-3">
+                    {% if user.is_superuser %}
+                        Вы вошли как:<br> {{ user.email }} (администратор)
+                    {% elif user|in_group:"manager" %}
+                        Вы вошли как:<br>{{ user.email }} (менеджер)
+                    {% else %}
+                        Вы вошли как:<br>{{ user.email }} (пользователь)
+                    {% endif %}
+                </div>
+            <form action="{% url 'users:logout' %}" method="POST">
+                {% csrf_token %}
+
+                <button type="submit" class="p-2 btn btn-outline-primary btn-sm d-grid">Выход</button>
+            </form>
+            {% if user.is_superuser or user|in_group:"manager" %}
+                <a class="p-2 btn btn-outline-primary btn-sm d-grid" href="{% url 'users:list_users' %}">Пользователи</a>
+            {% endif %}
+        </div>
+            {% else %}
+        <div class="mb-2">
+            <a class="p-2 btn btn-outline-primary btn-sm d-grid" href="{% url 'users:register' %}">Регтстрация</a>
+        </div>
+        <div class="mb-2">
+            <a class="p-2 btn btn-outline-primary btn-sm d-grid" href="{% url 'users:login' %}">Войти</a>
+        </div>
+
+        {% endif %}
+
+        <div class="mb-2">
+            <a class="p-2 btn btn-outline-primary btn-sm d-grid" href="{% url 'mailing:client_list' %}">БД
+                Клиенты</a>
+        </div>
+        <div class="mb-2">
+            <a class="p-2 btn btn-outline-primary btn-sm d-grid" href="{% url 'mailing:mail_list' %}">Сообщение
+                рассылки</a>
+        </div>
+        <div class="mb-2">
+            <a class="p-2 btn btn-outline-primary btn-sm d-grid" href="{% url 'mailing:mailingsrv_list' %}">Управление
+                рассылкой</a>
+        </div>
+        <div class="mb-2">
+            <a class="p-2 btn btn-outline-primary btn-sm d-grid" href="{% url 'blog:blogpost_list' %}">Блог</a>
+        </div>
+
+    </nav>
+</div>

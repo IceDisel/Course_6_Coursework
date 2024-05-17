@@ -1,0 +1,28 @@
+{% extends 'mailing/base_template.html' %}
+{% block content %}
+
+<div class="container">
+
+    <div class="row">
+        {% for object in object_list %}
+
+        <div class="col-3">
+            <div class="card text-center">
+                <div class="card-header">
+                    <p>Почта пользователя: {{object.email}}</p>
+                    <p>Активность пользователя: {{object.is_active}}</p>
+                </div>
+                <div class="card-body">
+
+                    <a href="{% url 'users:edit_users' object.pk %}"
+                       class="btn btn-outline-primary btn-sm">Изменить активность пользователя</a>
+
+                </div>
+            </div>
+        </div>
+
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}
