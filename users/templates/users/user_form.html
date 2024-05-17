@@ -11,7 +11,11 @@
                         {% csrf_token %}
                         {{ form.as_p }}
                         <button type="submit" class="p-2 btn btn-outline-primary">
-                            Зарегистрировать
+                            {% if user.is_authenticated %}
+                                Сохранить
+                            {% else %}
+                                Зарегистрировать
+                            {% endif %}
                         </button>
 
                         <a class="p-2 btn btn-outline-primary" href="{% url 'mailing:index' %}">Отмена</a>
