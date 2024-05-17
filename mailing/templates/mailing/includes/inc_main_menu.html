@@ -19,6 +19,9 @@
 
                 <button type="submit" class="p-2 btn btn-outline-primary btn-sm d-grid">Выход</button>
             </form>
+            {% if user.is_superuser or user|in_group:"manager" %}
+                <a class="p-2 btn btn-outline-primary btn-sm d-grid" href="{% url 'users:list_users' %}">Пользователи</a>
+            {% endif %}
         </div>
             {% else %}
         <div class="mb-2">
