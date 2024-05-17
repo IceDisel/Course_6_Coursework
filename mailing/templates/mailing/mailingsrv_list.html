@@ -10,14 +10,14 @@
     <div class="row">
         {% for object in object_list %}
         {% if perms.mailing.can_view_mailings or user == object.owner or user.is_superuser %}
-        <div class="col-12">
+        <div class="col-4">
             <div class="card text-center">
                 <div class="card-header">
-                    <p>{{object.owner}}</p>
-                    <p>{{object.recipients}}</p>
+                    <p>Владелец рассылки: {{object.owner}}</p>
+                    <p>Получатели рассылки: {{object.recipients.count}}</p>
                 </div>
                 <div class="card-body">
-                    <p class="card-text">{{object.comment|slice:":200" }}</p>
+                    <p class="card-text">Письмо для рассылки: {{object.mail|slice:":200" }}</p>
                     <a href="{% url 'mailing:mailingsrv_detail' object.pk %}"
                        class="btn btn-block btn-outline-primary btn-sm">Подробнее</a>
 

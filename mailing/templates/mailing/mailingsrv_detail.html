@@ -16,16 +16,42 @@
                 <div class="card-body">
                     <table class="table table-striped">
                         <tr>
-                            <td class="w-25">Полное Имя</td>
+                            <td class="w-25">Владелец рассылки: </td>
                             <td>{{ object.owner}}</td>
                         </tr>
                         <tr>
-                            <td class="w-25">Почтовый адрес</td>
-                            <td>{{ object.recipients }}</td>
+                            <td class="w-25">Получатели рассылки: </td>
+                            {% for recipient in object.recipients.all %}
+                                <td>{{ recipient }}</td>
+                            {% endfor %}
                         </tr>
                         <tr>
-                            <td class="w-25">Описание</td>
-                            <td>{{ object.start }}</td>
+                            <td class="w-25">Письмо для рассылки: </td>
+                            <td>{{object.mail }}</td>
+                        </tr>
+                        <tr>
+                            <td class="w-25">Начало рассылки: </td>
+                            <td>{{object.start }}</td>
+                        </tr>
+                        <tr>
+                            <td class="w-25">Время следующей рассылки: </td>
+                            <td>{{object.next }}</td>
+                        </tr>
+                        <tr>
+                            <td class="w-25">Время завершения рассылки: </td>
+                            <td>{{object.finish }}</td>
+                        </tr>
+                        <tr>
+                            <td class="w-25">Статус рассылки: </td>
+                            <td>{{object.status }}</td>
+                        </tr>
+                        <tr>
+                            <td class="w-25">Период рассылки: </td>
+                            <td>{{object.frequency }}</td>
+                        </tr>
+                        <tr>
+                            <td class="w-25">Активность рассылки: </td>
+                            <td>{{object.is_activated }}</td>
                         </tr>
                     </table>
                 </div>
